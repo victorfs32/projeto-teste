@@ -40,7 +40,7 @@ function Inicio() {
     // Valida se o nome do usuário foi inserido
     if (userName.trim()) {
       try {
-        await axios.post("https://backend-eosin-chi-12.vercel.app/user", { userName });
+        await axios.post("https://backend-eosin-chi-12.vercel.app/api/user", { userName });
         setWelcomeMessage(`Bem-vindo, ${userName}!`);
         navigate(`/${selectedQuiz}`, { state: { userName } }); // Navega para o quiz selecionado
       } catch (error) {
