@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
+import axios from 'axios';
 import "./Quiz.css"; // CSS
 import successSound from "./Path/success-sound.mp3";
 import errorSound from "./Path/error-sound.mp3";
@@ -119,8 +120,17 @@ function Numeros() {
   useEffect(() => {
     if (showScore) {
       // Atualiza a posição no ranking após mostrar a pontuação
-      const position = getRankingPosition();
-      setRankingPosition(position);
+      const fetchRankingPosition = async () => {
+        try {
+          const response = await axios.get(
+            `https://backend-eosin-chi-12.vercel.app/ranking/${userName}/${score}/${elapsedTime}`
+          );
+          setRankingPosition(response.data.position);
+        } catch (error) {
+          console.error("Erro ao obter a posição no ranking:", error);
+        }
+      };
+      fetchRankingPosition();
     }
   }, [showScore]);
 
@@ -128,7 +138,7 @@ function Numeros() {
     audioRef.current.play();
   };
 
-  const handleAnswerOptionClick = (isCorrect, index) => {
+  const handleAnswerOptionClick = async (isCorrect, index) => {
     setSelectedAnswerIndex(index);
 
     if (isCorrect) {
@@ -138,7 +148,7 @@ function Numeros() {
       playSound(errorAudio);
     }
 
-    setTimeout(() => {
+    setTimeout(async () => {
       const nextQuestion = currentQuestion + 1;
       if (nextQuestion < questions.length) {
         if (videoRef.current) {
@@ -150,31 +160,17 @@ function Numeros() {
       } else {
         clearInterval(intervalRef.current);
         setShowScore(true);
-        saveScore(userName, score, elapsedTime);
+        try {
+          await axios.post("https://backend-eosin-chi-12.vercel.app/scores", {
+            userName,
+            score,
+            timeTaken: elapsedTime
+          });
+        } catch (error) {
+          console.error("Erro ao salvar a pontuação:", error);
+        }
       }
     }, 100);
-  };
-
-  const saveScore = (userName, score, timeTaken) => {
-    const savedScores = JSON.parse(localStorage.getItem("quizScores")) || [];
-    const newScore = { userName, score, timeTaken };
-    savedScores.push(newScore);
-    localStorage.setItem("quizScores", JSON.stringify(savedScores));
-  };
-
-  const getRankingPosition = () => {
-    const savedScores = JSON.parse(localStorage.getItem("quizScores")) || [];
-    const sortedScores = savedScores.sort(
-      (a, b) => b.score - a.score || a.timeTaken - b.timeTaken
-    );
-    return (
-      sortedScores.findIndex(
-        (entry) =>
-          entry.userName === userName &&
-          entry.score === score &&
-          entry.timeTaken === elapsedTime
-      ) + 1
-    );
   };
 
   const formatTime = (timeInSeconds) => {
