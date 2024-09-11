@@ -1,20 +1,31 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import "../pages/Inicio.css"; // Importa o CSS para a página de início
 
 function Inicio() {
   const [userName, setUserName] = useState(""); // Estado para armazenar o nome do usuário
   const [selectedQuiz, setSelectedQuiz] = useState("Numeros"); // Estado para armazenar o quiz selecionado
   const [error, setError] = useState(""); // Estado para armazenar mensagens de erro
+  const [welcomeMessage, setWelcomeMessage] = useState(""); // Estado para armazenar a mensagem de boas-vindas
   const navigate = useNavigate(); // Hook para navegação programática
 
   useEffect(() => {
-    // Recupera o nome do usuário salvo no localStorage
-    const savedName = localStorage.getItem("userName");
-    if (savedName) {
-      setUserName(savedName);
-    }
+    // Recupera o nome do usuário do backend
+    const fetchUserName = async () => {
+      try {
+        const response = await axios.get("https://backend-eosin-chi-12.vercel.app/user");
+        if (response.data.userName) {
+          setUserName(response.data.userName);
+          setWelcomeMessage(`Bem-vindo de volta, ${response.data.userName}!`);
+        }
+      } catch (error) {
+        console.error("Erro ao recuperar o nome do usuário:", error);
+      }
+    };
+
+    fetchUserName();
   }, []);
 
   const handleInputChange = (e) => {
@@ -25,11 +36,17 @@ function Inicio() {
     setSelectedQuiz(e.target.value); // Atualiza o estado do quiz selecionado
   };
 
-  const handleInicio = () => {
+  const handleInicio = async () => {
     // Valida se o nome do usuário foi inserido
     if (userName.trim()) {
-      localStorage.setItem("userName", userName); // Salva o nome do usuário no localStorage
-      navigate(`/${selectedQuiz}`, { state: { userName } }); // Navega para o quiz selecionado
+      try {
+        await axios.post("https://backend-eosin-chi-12.vercel.app/user", { userName });
+        setWelcomeMessage(`Bem-vindo, ${userName}!`);
+        navigate(`/${selectedQuiz}`, { state: { userName } }); // Navega para o quiz selecionado
+      } catch (error) {
+        console.error("Erro ao salvar o nome do usuário:", error);
+        setError("Ocorreu um erro ao salvar seu nome. Tente novamente.");
+      }
     } else {
       setError("Por favor, insira seu nome!"); // Exibe uma mensagem de erro se o nome não for inserido
     }
@@ -37,7 +54,7 @@ function Inicio() {
 
   return (
     <div className="start-quiz">
-      <h1>{userName ? `Bem-vindo de volta, ${userName}!` : "Bem-vindo ao Quiz!"}</h1>
+      <h1>{welcomeMessage || "Bem-vindo ao Quiz!"}</h1>
       <input
         type="text"
         value={userName}
