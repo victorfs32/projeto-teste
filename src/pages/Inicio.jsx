@@ -15,7 +15,7 @@ function Inicio() {
     // Recupera o nome do usuário do backend
     const fetchUserName = async () => {
       try {
-        const response = await axios.get("https://backend-eosin-chi-12.vercel.app/user");
+        const response = await axios.get("https://backend-eosin-chi-12.vercel.app/api/user");
         if (response.data.userName) {
           setUserName(response.data.userName);
           setWelcomeMessage(`Bem-vindo de volta, ${response.data.userName}!`);
