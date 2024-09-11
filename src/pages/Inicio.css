@@ -1,0 +1,82 @@
+/* src/pages/Inicio.css */
+
+.start-quiz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #121212;
+  color: #f0f0f0;
+  font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #e0e0e0;
+  text-align: center;
+}
+
+input {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 80%;
+  max-width: 300px;
+  background-color: #333;
+  color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+input:focus {
+  background-color: #444;
+  outline: none;
+}
+
+select {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 80%;
+  max-width: 300px;
+  background-color: #444;
+  color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+select:focus {
+  background-color: #555;
+  outline: none;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+button:focus {
+  outline: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 1rem;
+  margin-top: 10px;
+  text-align: center;
+}

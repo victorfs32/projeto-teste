@@ -1,0 +1,86 @@
+/* Container principal */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 86vh;
+  padding: 20px;
+  background-color: #121212; /* Fundo escuro */
+  color: #ffffff; /* Texto branco */
+}
+
+/* Caixa de conteúdo */
+.box {
+  text-align: center;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #1e1e1e; /* Fundo da caixa */
+  border-radius: 10px;
+  margin-top: 80px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo do título */
+.H1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #00bcd4; /* Azul claro */
+}
+
+/* Estilo da descrição */
+.description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #e0e0e0; /* Cinza claro */
+}
+
+/* Estilo da primeira letra da descrição */
+.description::first-letter {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00bcd4; /* Azul claro */
+}
+
+/* Consultas de mídia para dispositivos móveis */
+@media (max-width: 768px) {
+  .box {
+    margin-top: 250px;
+    padding: 15px; /* Reduz o padding para telas menores */
+  }
+
+  .H1 {
+    font-size: 2.5rem; /* Ajusta o tamanho da fonte para telas menores */
+  }
+
+  .description {
+    font-size: 1rem; /* Ajusta o tamanho da fonte para telas menores */
+  }
+
+  .description::first-letter {
+    font-size: 1.5rem; /* Ajusta o tamanho da primeira letra para telas menores */
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    height: auto; /* Ajusta a altura do container para se adaptar ao conteúdo */
+    padding: 10px; /* Reduz o padding em dispositivos menores */
+  }
+
+  .box {
+    max-width: 100%; /* Ajusta a largura máxima da caixa para preencher a tela */
+    padding: 10px; /* Reduz o padding */
+  }
+
+  .H1 {
+    font-size: 2rem; /* Ajusta o tamanho da fonte para telas muito pequenas */
+  }
+
+  .description {
+    font-size: 0.9rem; /* Ajusta o tamanho da fonte para telas muito pequenas */
+  }
+
+  .description::first-letter {
+    font-size: 1.2rem; /* Ajusta o tamanho da primeira letra para telas muito pequenas */
+  }
+}

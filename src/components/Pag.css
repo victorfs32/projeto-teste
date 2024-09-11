@@ -1,0 +1,118 @@
+/* Pag.css */
+
+/* Container principal */
+.container {
+  margin-top: 5%;
+  background-color: #121212;
+  color: #ffffff;
+  padding: 20px;
+  height: auto; /* Ajuste a altura para se adaptar ao conteúdo */
+  display: flex;
+  flex-direction: column; /* Mude para coluna em dispositivos móveis */
+  align-items: center; /* Centralize o conteúdo horizontalmente */
+}
+
+/* Cabeçalho */
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Cabeçalho h1 */
+.header h1 {
+  margin: 0;
+}
+
+/* Barra de pesquisa */
+.search-input {
+  width: 100%;
+  max-width: 400px; /* Ajuste conforme necessário */
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #333; /* Para melhor contraste com o texto branco */
+  color: #fff; /* Texto branco para a barra de pesquisa */
+}
+
+/* Grade de vídeos */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  width: 100%;
+  margin-top: 20px; /* Espaçamento entre a seção de pesquisa e a grade de vídeos */
+}
+
+/* Item de vídeo */
+.video-item {
+  width: 100%;
+  max-width: 250px; /* Ajusta a largura máxima do item de vídeo */
+  text-align: center; /* Centraliza o texto */
+  display: flex;
+  flex-direction: column; /* Alinha o vídeo e a descrição em coluna */
+  align-items: center; /* Centraliza horizontalmente */
+}
+
+/* Estilo do vídeo */
+video {
+  width: 100%;
+  height: auto; /* Ajusta a altura automaticamente */
+  max-height: 250px; /* Define uma altura máxima para o vídeo */
+  object-fit: cover; /* Faz com que o vídeo cubra a área do contêiner */
+  border: 1px solid #ccc; /* Borda ao redor do vídeo */
+  border-radius: 4px; /* Bordas arredondadas */
+}
+
+/* Descrição do vídeo */
+.video-description {
+  margin-top: 8px; /* Espaçamento entre o vídeo e o texto */
+  font-size: 14px; /* Tamanho da fonte do texto */
+  color: #fff; /* Cor do texto */
+}
+
+/* Consultas de mídia para dispositivos móveis */
+@media (max-width: 768px) {
+  .container {
+    margin-top: 55px;
+      padding: 50px; /* Reduz o padding em dispositivos menores */
+  }
+
+  .search-input {
+      font-size: 14px; /* Ajusta o tamanho da fonte */
+  }
+
+  .video-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajusta as colunas da grade para telas menores */
+  }
+
+  .video-item {
+      max-width: 100%; /* Ajusta o item de vídeo para preencher a largura disponível */
+  }
+
+  .video-description {
+      font-size: 12px; /* Ajusta o tamanho da fonte */
+  }
+}
+
+@media (max-width: 480px) {
+  .search-input {
+      font-size: 12px; /* Ajusta o tamanho da fonte para telas menores */
+  }
+
+  .video-grid {
+      grid-template-columns: 1fr; /* Exibe uma coluna em telas muito pequenas */
+  }
+
+  .video-item {
+      max-width: 100%; /* Garante que o item de vídeo se ajuste à largura da tela */
+  }
+
+  .video-description {
+      font-size: 10px; /* Ajusta o tamanho da fonte para telas muito pequenas */
+  }
+}
